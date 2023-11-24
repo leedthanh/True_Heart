@@ -9,9 +9,9 @@ import joblib as joblib
 
 
 #DATASET_PATH = "heart_2020_cleaned.csv"
-DATASET_PATH = "sample_data_part_1.csv"
+DATASET_PATH = "output_chunk_part_2.csv"
 # LOG_MODEL_PATH = "logistic_regression.pkl"  #WORKS
-LOG_MODEL_PATH = "reg_model.pkl"  #WORKS 
+LOG_MODEL_PATH = "regression_resampled.pkl"  #WORKS BUT LOW PRECISION
 # LOG_MODEL_PATH = "svm_model.joblib"  #NOT WORKING CHECK INDEX INPUT
 # LOG_MODEL_PATH = "support_vector_machine.pkl"  WORKS BUT PRECISION IS BAD
 # LOG_MODEL_PATH = "neural_network_model.h5"   #not working 
@@ -72,21 +72,16 @@ def main():
         return features_df
 
      
-
     st.set_page_config(
         page_title="Heart Disease Prediction App",
-       
-    )
+        )
 
     st.title("Heart Disease Prediction")
-    st.subheader("Machine learning built to classify high risk heart disease")
-    st.write("This app not capable of diagnosing medical conditions. If you have health concerns, it's best to consult with a healthcare professional for accurate advice.")
-
-   
-
+    st.subheader("True-Heart is a Machine learning model predicting heart disease.  Trained on dataset from the CDC.")
+    st.write("Data source https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease")
+    st.write("Please answer a set of questions that assess your risk of heart disease using logistic regression algorithm.")
     heart = load_dataset()
 
-    
     input_df = user_input_features()
     df = pd.concat([input_df, heart], axis=0)
     df = df.drop(columns=["HeartDisease"])
@@ -117,9 +112,6 @@ def main():
 
     if submit:
 
-
-
-
         prediction = log_model.predict(df)
 
         # Assuming the model predicts probabilities for a binary classification
@@ -130,15 +122,17 @@ def main():
             st.warning("High Risk Detected! Take appropriate action.")
             st.write("CDC heart disease information: "
              "https://www.cdc.gov/heartdisease/index.htm")
-            st.warning("Disclaimer I am not a doctor.  Go get a check up")
+            st.warning("Bidi bidi bom bom! I am not a doctor.  Go get a check up")
          
         else:
             st.success("The model predicts LOW RISK.")
             st.write("CDC heart disease information: "
          "https://www.cdc.gov/heartdisease/index.htm")
-            st.success("Disclaimer I am not a doctor.  Go get a check up")
+            st.success("Bidi bidi bom bom! I am not a doctor.  Go get a check up")
       
             st.balloons()
+    
+    st.write("Disclaimer: The results of this assessment are based on a machine learning model using logistic regression and are not a substitute for professional medical advice. Consult with a healthcare professional for accurate and personalized guidance.")
 
 
 if __name__ == "__main__":
