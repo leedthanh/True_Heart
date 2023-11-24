@@ -78,7 +78,7 @@ def main():
 
     st.title("Heart Disease Prediction")
     st.subheader("True-Heart is a Machine learning model predicting heart disease.  Trained on dataset from the CDC.")
-    st.write("Data source https://www.kaggle.com/datasets/kamilpytlak/personal-key-indicators-of-heart-disease")
+    st.write("Data source https://www.kaggle.com/datasets/luyezhang/heart-2020-cleaned")
     st.write("Please answer a set of questions that assess your risk of heart disease using logistic regression algorithm.")
     heart = load_dataset()
 
@@ -107,7 +107,7 @@ def main():
     log_model = joblib.load(open(LOG_MODEL_PATH, "rb"))
     
     # log_model = tf.keras.models.load_model(LOG_MODEL_PATH)
-
+    
     submit = st.button("Make Prediction")
 
     if submit:
